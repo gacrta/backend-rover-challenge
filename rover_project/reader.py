@@ -13,7 +13,7 @@ class Reader:
 		>>> reader.file == None
 		True
 		"""
-		self.filename = ''
+		self.filename = filename
 		self.file = None
 
 	def open():
