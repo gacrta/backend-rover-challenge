@@ -4,24 +4,27 @@ import unittest
 class TestReader(unittest.TestCase):
 	""" Test Class for Reader.__init__ method at reader module."""
 
-	def test_reader_filename(self):
-		"""
-		Test if reader receives the correct filename.
-		"""
+	file_path = 'rover_project/tests/'
 
-		filename = "filename.txt"
-		r = reader.Reader(filename)
-
-		self.assertEqual(r.filename, filename)
-
-	def test_reader_file(self):
+	def test_reader_valid_filename(self):
 		"""
-		Test if reader inits file variable with None
+		Test if reader can open a file correctly.
 		"""
 
-		r = reader.Reader('')
+		filename = TestReader.file_path + "test_init_filename.txt"
 
-		self.assertIsNone(r.file)
+		with reader.Reader(filename) as r:
+			pass
+
+		self.assertIsNotNone(r.file)
+
+	def test_reader_not_valid_file(self):
+		"""
+		Test if reader raises FileNotFoundError exception when tries
+		to open non existing file
+		"""
+
+		self.assertRaises(FileNotFoundError, reader.Reader, '')
 
 if __name__ == "__main__":
 	unittest.main(exit=False)

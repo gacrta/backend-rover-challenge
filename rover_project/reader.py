@@ -13,10 +13,16 @@ class Reader:
 		>>> reader.file == None
 		True
 		"""
-		self.filename = filename
 		self.file = None
+		self.file = open(filename)
 
-	def open():
+	def __enter__(self):
+		return self
+
+	def __exit__(self, exc_type, exc_value, traceback):
+		self.file.close()
+
+	#def open(self):
 		"""(Reader) -> NoneType
 
 		Opens the file with name self.filename for reading.
@@ -27,9 +33,9 @@ class Reader:
 		>>> reader.file == None
 		False
 		"""
-		return None
+	#	self.file = open(self.filename)
 
-	def close():
+	#def close(self):
 		"""(Reader) -> NoneType
 
 		Closes the file at self.file that was opened by
@@ -45,7 +51,7 @@ class Reader:
 			File "<stdin>", line 1, in <module>
 		ValueError: I/O operation on closed file.
 		"""
-		return None
+	#	self.file.close()
 
 	def read_upper_right_coordinates(self):
 		"""(Reader) -> (int, int) tuple
@@ -62,7 +68,10 @@ class Reader:
 		>>> size_y == 4
 		True
 		"""
-		return (0, 0)
+		line = self.file.readline()
+		line_values = line.split()
+		x, y = int(line_values[0]), int(line_values[1])
+		return (x, y)
 
 	def read_rover_starting_position(self):
 		"""(Reader) -> (int, int, str) tuple
@@ -81,7 +90,14 @@ class Reader:
 		>>> orientation == 'E'
 		True
 		"""
-		return (0, 0, 'E')
+		line = self.file.readline()
+		values = line.split()
+
+		x = int(values[0])
+		y = int(values[1])
+		direction = values[2]
+
+		return (x, y, direction)
 
 	def read_rover_commands(self):
 		"""(Reader) -> List of str
