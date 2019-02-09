@@ -111,4 +111,5 @@ class Reader:
 		>>> commands == ['M', 'R', 'M', 'L', 'L', 'M']
 		True
 		"""
-		return []
+		line = self.file.readline()
+		return list(line)
