@@ -112,9 +112,11 @@ class Rover:
 
 		Return the current rover position tuple.
 
-		>>> pos = (1, 1, 'N')
+		>>> pos = (1, 2, 'N')
 		>>> r = rover.Rover(pos)
 		>>> r.get_position()
-		(1, 1, 'N')
+		(1, 2, 'N')
 
 		"""
+		pos = (self.x, self.y, self.direction)
+		return pos
