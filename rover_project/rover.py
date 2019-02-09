@@ -66,7 +66,18 @@ class Rover:
 		>>> (r.x, r.y, r.direction)
 		(3, 1, 'N')
 		"""
-		return None
+
+		if self.direction == "N":
+			self.direction = 'W'
+
+		elif self.direction == "W":
+			self.direction = 'S'
+
+		elif self.direction == 'S':
+			self.direction = 'E'
+
+		else:
+			self.direction = 'N'
 
 	def turn_right(self):
 		"""(Rover) -> NoneType
@@ -83,7 +94,18 @@ class Rover:
 		>>> (r.x, r.y, r.direction)
 		(3, 1, 'S')
 		"""
-		return None
+		
+		if self.direction == "N":
+			self.direction = 'E'
+
+		elif self.direction == "E":
+			self.direction = 'S'
+
+		elif self.direction == 'S':
+			self.direction = 'W'
+
+		else:
+			self.direction = 'N'
 
 	def get_position(self):
 		"""(Rover) -> (int, int, str) tuple
