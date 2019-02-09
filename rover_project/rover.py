@@ -37,7 +37,19 @@ class Rover:
 		>>> (r.x, r.y)
 		(2, 1)
 		"""
-		return None
+
+		if self.direction == "N":
+			self.y += 1
+
+		elif self.direction == "E":
+			self.x += 1
+
+		elif self.direction == 'S':
+			self.y -= 1
+
+		else:
+			self.x -= 1
+
 
 	def turn_left(self):
 		"""(Rover) -> NoneType
