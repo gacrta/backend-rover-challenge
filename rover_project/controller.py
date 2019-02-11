@@ -1,5 +1,4 @@
-from rover_project import reader
-from rover_project import rover
+from rover_project import reader, rover
 
 class Controller:
 	""" The Rover Controller class. """
@@ -26,29 +25,6 @@ class Controller:
 		self.filename = filename
 		self.x_limit = 0
 		self.y_limit = 0
-
-	def run(self):
-		"""(Controller) -> NoneType
-
-		Executes all lines of input file.
-		>>> cat input.txt
-		5 5
-		1 2 N
-		LMLMLMLMM
-		>>> c = Controller("input.txt")
-		>>> c.run()
-		1 3 N
-		"""
-
-		with Reader.reader(self.filename) as r:
-			self.x_limit, self.y_limit = r.read_upper_right_coordinates()
-			while r.has_rover_simulation():
-				rover_starting_position = r.read_rover_starting_position()
-				m_rover = rover.Rover(rover_starting_position)
-				commands = r.read_rover_commands()
-				for command in commands:
-					do_command(m_rover, command)
-				print( format_position( m_rover.get_position() ) )
 
 	def do_command(self, a_rover, command):
 		"""(Controller, rover, str) -> NoneType
@@ -119,3 +95,26 @@ class Controller:
 		result = "{0} {1} {2}".format(str(rover_x), str(rover_y), rover_direction)
 
 		return result
+
+	def run(self):
+		"""(Controller) -> NoneType
+
+		Executes all lines of input file.
+		>>> cat input.txt
+		5 5
+		1 2 N
+		LMLMLMLMM
+		>>> c = Controller("input.txt")
+		>>> c.run()
+		1 3 N
+		"""
+
+		with reader.Reader(self.filename) as r:
+			self.x_limit, self.y_limit = r.read_upper_right_coordinates()
+			while r.has_rover_simulation():
+				rover_starting_position = r.read_rover_starting_position()
+				m_rover = rover.Rover(rover_starting_position)
+				commands = r.read_rover_commands()
+				for command in commands:
+					self.do_command(m_rover, command)
+				print( self.format_position( m_rover.get_position() ) )
