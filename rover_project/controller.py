@@ -115,5 +115,7 @@ class Controller:
 		>>> c.format_position()
 		1 3 N
 		"""
+		rover_x, rover_y, rover_direction = rover_position
+		result = "{0} {1} {2}".format(str(rover_x), str(rover_y), rover_direction)
 
-		return ""
+		return result
