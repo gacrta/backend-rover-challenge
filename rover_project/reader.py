@@ -22,37 +22,6 @@ class Reader:
 	def __exit__(self, exc_type, exc_value, traceback):
 		self.file.close()
 
-	#def open(self):
-		"""(Reader) -> NoneType
-
-		Opens the file with name self.filename for reading.
-		and stores it at self.file. self.file must be closed
-		after used.
-
-		>>> reader = Reader('')
-		>>> reader.file == None
-		False
-		"""
-	#	self.file = open(self.filename)
-
-	#def close(self):
-		"""(Reader) -> NoneType
-
-		Closes the file at self.file that was opened by
-		self.open(). After closed, in order to read from
-		the file again it is necessary to re-open the file.
-
-		>>> reader = Reader('')
-		>>> reader.close()
-		>>> reader.file == None
-		False
-		>>> reader.file.readline()
-		Traceback (most recent call last):
-			File "<stdin>", line 1, in <module>
-		ValueError: I/O operation on closed file.
-		"""
-	#	self.file.close()
-
 	def read_upper_right_coordinates(self):
 		"""(Reader) -> (int, int) tuple
 
@@ -72,6 +41,27 @@ class Reader:
 		line_values = line.split()
 		x, y = int(line_values[0]), int(line_values[1])
 		return (x, y)
+
+	def has_rover_simulation(self):
+		"""(Reader) -> boolean
+
+		Peeks the next line of input file. If the line
+		is not empty, returns true.
+		Implementation based on
+		https://stackoverflow.com/questions/16840554/reading-a-line-from-file-without-advancing-pythonic-approach
+
+		>>> cat has_rover_sim.txt
+		1 2 N
+		MMMR
+		>>> r = Reader('test.txt')
+		>>> r.has_rover_sim()
+		True
+		"""
+
+		pos = self.file.tell()
+		line = self.file.readline()
+		self.file.seek(pos)
+		return len(line) > 0
 
 	def read_rover_starting_position(self):
 		"""(Reader) -> (int, int, str) tuple
