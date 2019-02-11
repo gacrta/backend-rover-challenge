@@ -2,28 +2,32 @@ from rover_project import reader
 import unittest
 
 class TestReaderReadUpperRightCoord(unittest.TestCase):
-	""" Test Class for Reader.read_upper_right_coordinates
+	""" Test Class for Reader.has_rover_simulation
 		method at reader module.
 	"""
 	file_path = 'rover_project/tests/'
 
-	def test_reader_read_x_coord(self):
+	def test_has_rover_simulation_found(self):
 		"""
-		Test if reader gets correct x_coord from
-		a file that contains 4 5 information.
+		Test if reader correctly peeks next line of
+		input file to check if there is still content
+		and succeeds.
 		"""
 
 		filename = TestReaderReadUpperRightCoord.file_path + "test_reader_coords.txt"
 
 		with reader.Reader(filename) as r:
-			x_coord, y_coord = r.read_upper_right_coordinates()
+			# read a couple of lines
+			_ = r.readline()
+			_ = r.readline()
 
-		self.assertEqual(x_coord, 4)
+			self.assertTrue(has_rover_simulation())
 
-	def test_reader_read_y_coord(self):
+	def test_has_rover_simulation_not_found(self):
 		"""
-		Test if reader gets correct y_coord from
-		a file that contains 4 5 information.
+		Test if reader correctly peeks next line of
+		input file to check if there is still content
+		and fails.
 		"""
 
 		filename = TestReaderReadUpperRightCoord.file_path + "test_reader_coords.txt"
